@@ -10,11 +10,11 @@ class ZP_Images extends ZP_Load
 
 	public function crop($rect = array(0, 0, 90, 90), $width = null, $height = null)
 	{
-		if (is_null($width)) {
+		if ($width === null) {
 			$width = $rect[2];
 		}
 
-		if (is_null($height)) {
+		if ($height === null) {
 			$height = $rect[3];
 		}
 
@@ -175,7 +175,7 @@ class ZP_Images extends ZP_Load
 			imagepng($this->image, $filename);
 		}   
 
-		if (!is_null($permissions)) {
+		if ($permissions !== null) {
 			chmod($filename, $permissions);
 		}
 	}
