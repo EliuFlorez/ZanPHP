@@ -103,7 +103,7 @@ class ZP_Data extends ZP_Load
 			}
 		}
 
-		if (is_null($data)) {
+		if ($data === null) {
 			$data = array();
 		}
 
