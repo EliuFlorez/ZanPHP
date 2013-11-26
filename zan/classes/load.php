@@ -195,7 +195,7 @@ class ZP_Load
 				}
 			}
 		} else { 
-			if (is_null($application)) {
+			if ($application === null) {
 				if (file_exists(CORE_PATH ."/helpers/$helper.php")) {
 					include_once CORE_PATH ."/helpers/$helper.php";
 				} elseif (file_exists("www/helpers/$helper.php")) {
@@ -217,7 +217,7 @@ class ZP_Load
 	{
 		if (is_array($hook)) {
 			for ($i = 0; $i <= count($hook) - 1; $i++) {
-				if (is_null($application)) {
+				if ($application === null) {
 					if (file_exists(CORE_PATH ."/hooks/". $hook[$i] .".php")) {
 						include_once CORE_PATH ."/hooks/". $hook[$i] .".php";
 					} else {			
@@ -232,7 +232,7 @@ class ZP_Load
 				}
 			}
 		} else {
-			if (is_null($application)) {
+			if ($application === null) {
 				if (file_exists(CORE_PATH ."hooks/$hook.php")) {
 					include_once CORE_PATH ."hooks/$hook.php";
 				} else {			
@@ -440,11 +440,11 @@ class ZP_Load
 
 	public function view($name, $vars = NULL, $application = NULL, $return = false)
 	{
-		if (is_null($application)) {
+		if ($application === null) {
 			$application = whichApplication();
 		} 
 
-		if (!is_null($application) and is_string($application) and is_string($name)) {
+		if (($application !== null) and is_string($application) and is_string($name)) {
 			$view = "www/applications/$application/views/$name.php";
 			$minView = "www/applications/$application/views/min/$name.php";
 
