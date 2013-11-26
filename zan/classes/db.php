@@ -318,7 +318,7 @@ class ZP_Db extends ZP_Load
 			$this->table($table, $fields);
 		} 
 
-		if (!is_null($group)) {
+		if ($group !== null) {
 			$SQL .= " GROUP BY ". $group;
 		}
 		
@@ -326,13 +326,13 @@ class ZP_Db extends ZP_Load
 			$SQL .= "";
 		} elseif ($order === "DESC") {
 			$SQL .= " ORDER BY $this->primaryKey DESC";
-		} elseif (!is_null($order)) {
+		} elseif ($order !== null) {
 			$SQL .= " ORDER BY ". $order;
-		} elseif (is_null($order)) {
+		} elseif ($order === null) {
 			$SQL .= " ORDER BY $this->primaryKey";
 		}
 	
-		if (!is_null($limit)) {
+		if ($limit !== null) {
 			$SQL .= " LIMIT ". $limit;
 		}
 
@@ -348,7 +348,7 @@ class ZP_Db extends ZP_Load
 			$this->table($table, $fields);
 		}
 		
-		if (!is_null($group)) {
+		if ($group !== null) {
 			$SQL .= " GROUP BY ". $group;
 		}
 		
@@ -356,13 +356,13 @@ class ZP_Db extends ZP_Load
 			$SQL .= "";
 		} elseif ($order === "DESC") {
 			$SQL .= " ORDER BY $this->primaryKey";
-		} elseif (!is_null($order)) {
+		} elseif ($order !== null) {
 			$SQL .= " ORDER BY ". $order;
 		} elseif ($order === "") {
 			$SQL .= " ORDER BY $this->primaryKey";
 		}
 		
-		if (!is_null($limit)) {
+		if ($limit !== null) {
 			$SQL .= " LIMIT ". $limit;
 		}
 
@@ -385,7 +385,7 @@ class ZP_Db extends ZP_Load
 	
 	public function findBySQL($SQL, $table = null, $fields = "*", $group = null, $order = null, $limit = null)
 	{		
-		if (!is_null($group)) {
+		if ($group !== null) {
 			$SQL .= " GROUP BY ". $group;
 		}
 		
@@ -393,11 +393,11 @@ class ZP_Db extends ZP_Load
 			$this->table($table, $fields);
 		}
 		
-		if (is_null($order)) { 
+		if ($order === null) { 
 			$SQL .= "";		
 		} elseif ($order === "DESC") {
 			$SQL .= " ORDER BY $this->primaryKey DESC";
-		} elseif (!is_null($order)) {  
+		} elseif ($order !== null) {  
 			$SQL .= " ORDER BY ". $order;
 		} elseif ($order === "") { 
 			$SQL .= " ORDER BY $this->primaryKey";
@@ -644,7 +644,7 @@ class ZP_Db extends ZP_Load
 				}
 			}
 		} else {
-			if (is_null($this->where)) {
+			if ($this->where === null) {
 				if ($position === "both") {
 					$this->where = "WHERE $data LIKE '%$match%'";
 				} elseif ($position === "before") {
@@ -693,11 +693,11 @@ class ZP_Db extends ZP_Load
 				}
 			}
 			
-			if (!is_null($this->where)) {
+			if ($this->where !== null) {
 				$this->where .= " OR $field NOT IN ($values)";
 			}
 		} else {
-			if (!is_null($this->where)) {
+			if ($this->where !== null) {
 				$this->where .= " OR $field NOT IN ('$data')";
 			}
 		}
@@ -732,11 +732,11 @@ class ZP_Db extends ZP_Load
 				}
 			}
 			
-			if (!is_null($this->where)) {
+			if ($this->where !== null) {
 				$this->where .= " OR $field NOT IN ($values)";
 			}
 		} else {
-			if (!is_null($this->where)) {
+			if ($this->where !== null) {
 				$this->where .= " OR $field NOT IN ('$data')";
 			}
 		}
@@ -751,11 +751,11 @@ class ZP_Db extends ZP_Load
 				$values .= ($i === count($data) - 1) ? "'$data[$i]'" : "'$data[$i]', ";
 			}
 			
-			if (!is_null($this->where)) {
+			if ($this->where !== null) {
 				$this->where .= " OR $field IN ($values)";
 			}
 		} else {
-			if (!is_null($this->where)) {
+			if ($this->where !== null) {
 				$this->where .= " OR $field IN ('$data')";
 			}
 		}
@@ -770,11 +770,11 @@ class ZP_Db extends ZP_Load
 				$values .= ($i === count($data) - 1) ? "'$data[$i]'" : "'$data[$i]', ";
 			}
 			
-			if (!is_null($this->where)) {
+			if ($this->where !== null) {
 				$this->where .= " OR $field NOT IN ($values)";
 			}
 		} else {
-			if (!is_null($this->where)) {
+			if ($this->where !== null) {
 				$this->where .= " OR $field NOT IN ('$data')";
 			}
 		}
@@ -803,7 +803,7 @@ class ZP_Db extends ZP_Load
 	
 	public function save($option = null) 
 	{	
-		if (is_null($option)) {
+		if ($option === null) {
 			return $this->insert();	
 		} elseif ($option > 0) {
 			return $this->update(false, false, $option);
@@ -852,7 +852,7 @@ class ZP_Db extends ZP_Load
 
 	public function table($table, $fields = "*")
 	{
-		$fields = is_null($fields) ? "*" : $fields;
+		$fields = ($fields === null) ? "*" : $fields;
 		$table = str_replace(DB_PREFIX, "", $table);
 		
 		$this->table = DB_PREFIX . $table; 
@@ -885,7 +885,7 @@ class ZP_Db extends ZP_Load
 		}
 
 		$table = $this->getTable($table);
-		$primaryKey = is_null($primaryKey) ? $this->primaryKey : $primaryKey;
+		$primaryKey = ($primaryKey === null) ? $this->primaryKey : $primaryKey;
 
 		if (is_array($fields)) {
 			$count = count($fields) - 1;
@@ -894,7 +894,7 @@ class ZP_Db extends ZP_Load
 			$i = 0;
 
 			foreach ($fields as $field => $value) {
-				if (is_null($value)) {
+				if ($value === null) {
 					$_values .= "$field = DEFAULT, ";
 				} else {
 					$_values .= "$field = '$value', ";
@@ -973,12 +973,12 @@ class ZP_Db extends ZP_Load
 				$i++;
 			}
 
-			$this->where = (is_null($this->where)) ? "WHERE $_where" : " AND $_where";
+			$this->where = ($this->where === null) ? "WHERE $_where" : " AND $_where";
 		} else {
 			if (isset($data) and !$value) {
-				$this->where = (is_null($this->where)) ? "WHERE $data" : " $data";
+				$this->where = ($this->where === null) ? "WHERE $data" : " $data";
 			} else {
-				if (is_null($this->where)) {
+				if ($this->where === null) {
 					$parts = explode(" ", $data);
 
 					$this->where = (count($parts) === 2) ? "WHERE parts[0] $parts[1] '$value'" : "WHERE $data = '$value'";
@@ -1002,13 +1002,13 @@ class ZP_Db extends ZP_Load
 				$values .= ($i === count($data) - 1) ? "'$data[$i]'" : "'$data[$i]', ";
 			}
 
-			if (is_null($this->where)) {
+			if ($this->where === null) {
 				$this->where = "WHERE $field IN ($values)";
 			} else {
 				$this->where .= " AND $field IN ($values)";
 			}
 		} else {
-			if (is_null($this->where)) {
+			if ($this->where === null) {
 				$this->where = "WHERE $field IN ('$data')";
 			} else {
 				$this->where .= " AND $field IN ('$data')";
@@ -1025,13 +1025,13 @@ class ZP_Db extends ZP_Load
 				$values .= ($i === count($data) - 1) ? "'$data[$i]'" : "'$data[$i]', ";
 			}
 
-			if (is_null($this->where)) {
+			if ($this->where === null) {
 				$this->where = "WHERE $field NOT IN ($values)";
 			} else {
 				$this->where .= " AND $field NOT IN ($values)";
 			}
 		} else {
-			if (is_null($this->where)) {
+			if ($this->where === null) {
 				$this->where = "WHERE $field NOT IN ('$data')";
 			} else {
 				$this->where .= " AND $field NOT IN ('$data')";
@@ -1063,20 +1063,20 @@ class ZP_Db extends ZP_Load
 				$i++;
 			}
 
-			if (is_null($this->where)) {
+			if ($this->where === null) {
 				$this->where = "WHERE $_where";
 			} else {
 				$this->where .= " OR $_where";
 			}
 		} else {
 			if (isset($data) and !$value) {
-				if (is_null($this->where)) {
+				if ($this->where === null) {
 					$this->where  = "WHERE $data";
 				} else {
 					$this->where .= " $data";
 				}
 			} else {
-				if (is_null($this->where)) {
+				if ($this->where === null) {
 					$parts = explode(" ", $data);
 					$this->where = (count($parts) === 2) ? "WHERE parts[0] $parts[1] '$value'" : "WHERE $data = '$value'";
 				} else {
